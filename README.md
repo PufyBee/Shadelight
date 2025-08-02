@@ -7,9 +7,10 @@ Shadelight is a lightweight Python‑based network and threat scanner for studen
 
 ## Features
 - **Subnet‑wide host discovery** via `ping`/`ARP`
-- **TCP port scanning** (multi‑host, multi‑port)
-- **Simple risk flagging** *(coming soon)*
-- **CSV + HTML reporting** *(coming soon)*
+- **TCP port scanning** 
+- **Simple risk flagging** 
+-  **Signature based malware scanning** 
+- **CSV + HTML reporting** 
 - **Streamlit GUI** *(planned)*
 
 ## Installation
@@ -27,6 +28,12 @@ python -m shadelight 192.168.1.0/24 --ports 22,80,443
 ```
 Replace `192.168.1.0/24` with your own subnet and adjust the port list as needed.
 
+## Signature-Based Malware Scan
+- **Scan a folder**
+python -m shadelight 0.0.0.0/32 -- ports 0 --signature-scan "C:\\Users\\YourName\\Downloads"
+- **Scan a single file**
+python -m shadelight 0.0.0.0/32 --ports 0 --signature-scan "C:\\path\\to\\suspect_file.exe"
+
 ## Project Structure
 ```text
 shadelight/
@@ -34,6 +41,7 @@ shadelight/
 │   ├── __init__.py
 │   ├── __main__.py
 │   └── scanner.py
+|   └── signature_scan.py
 ├── requirements.txt
 ├── README.md
 ├── LICENSE
