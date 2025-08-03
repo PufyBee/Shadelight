@@ -1,15 +1,23 @@
 from .scanner import run_scan
 from .signature_scan import scan_folder_for_signatures, save_signature_scan_csv, save_signature_scan_html
 import argparse
+import sys
 
 def main():
     parser = argparse.ArgumentParser(description="Shadelight - Lightweight Security Scanner")
     parser.add_argument("subnet", help="Subnet to scan (e.g., 192.168.1.0/24)")
     parser.add_argument("--ports", help="Comma-separated list of ports to scan", default="22,80,443,445")
-    parser.add_argument("--signature-scan", help="Optional folder to scan for known malware signatures")
+    parser.add_argument("--signature-scan", dest="signature_scan",
+                        help="Optional folder to scan for known malware signatures")
     args = parser.parse_args()
 
-    ports = list(map(int, args.ports.split(",")))
+    ports = []
+    try:
+        ports = list(map(int, args.ports.split(",")))
+    except ValueError:
+        print("[ERROR] Invalid port list. Use comma-separated integers.", file=sys.stderr)
+        sys.exit(1)
+
     run_scan(args.subnet, ports)
 
     if args.signature_scan:
