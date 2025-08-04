@@ -4,3 +4,9 @@ build/
 dist/
 shadelight_backend.spec
 venv/
+*.csv            
+*.html           
+eicar.com        
+scan_results*    
+signature_scan*  
+shadelight_backend.exe 
